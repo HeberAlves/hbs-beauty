@@ -8,10 +8,10 @@ import br.com.hbsbeauty.model.User;
 import br.com.hbsbeauty.repository.UserRepository;
 
 @Service
-
 public class UserServices {
+	
 	@Autowired
-	private UserRepository userRepository;;
+	private UserRepository userRepository;
 	
 	public List<User> getAllUsers(){
 		return userRepository.getAllUser();
