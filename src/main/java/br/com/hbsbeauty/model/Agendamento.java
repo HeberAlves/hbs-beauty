@@ -1,64 +1,64 @@
 package br.com.hbsbeauty.model;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Agendamento {
+public class Agendamento implements Serializable {
 	
 	@Id
-	@GeneratedValue ( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date datainicio;
 	private Date datafim;
 	private Date criadoEm;
-	
-	@ManyToOne
-	private Funcionario funcionario;
-	
-	@ManyToOne
-	private Cliente cliente;
-	
-	@OneToMany
-	private List<Servico> servico;
-	
-	
-	public Agendamento() {
-		
-	}
 
-	public Agendamento(Integer id,Date datainicio, Date datafim, Date dataAgendamento, Funcionario funcionario, Cliente cliente, List<Servico> servico) {
-		super();
-		this.id = id;
-		this.datainicio = datainicio;
-		this.datafim = datafim;
-		this.criadoEm = dataAgendamento;
-		this.funcionario = funcionario;
-		this.cliente = cliente;
-		this.servico = servico;
-	}
+	@OneToMany
+	@JoinTable(name = "funcionario_agendamento",
+			joinColumns = {@JoinColumn(name = "agendamento_id")},
+			inverseJoinColumns = {@JoinColumn(name = "funcionario_id")}
+	)
+	private List<Funcionario> funcionarios;
+
+	@OneToMany
+	@JoinTable(name = "cliente_agendamento",
+			joinColumns = {@JoinColumn(name = "agendamento_id")},
+			inverseJoinColumns = {@JoinColumn(name = "cliente_id")}
+	)
+	private List<Cliente> clientes;
+
+	@OneToMany
+	@JoinTable(name = "agendamento_servico",
+			joinColumns = {@JoinColumn(name = "agendamento_id")},
+			inverseJoinColumns = {@JoinColumn(name = "servico_id")}
+	)
+	private List<Servico> servico;
+
 
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Date getDatainicio() {
@@ -85,20 +85,20 @@ public class Agendamento {
 		this.criadoEm = criadoEm;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public List<Cliente> getClientes() {
+		return clientes;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	public List<Servico> getServico() {
@@ -108,13 +108,5 @@ public class Agendamento {
 	public void setServico(List<Servico> servico) {
 		this.servico = servico;
 	}
-
-	
-
-	
-
-	
-	
-	
 }
 		

@@ -17,8 +17,8 @@ public class FuncionarioServices {
 	public List<Funcionario> getAllFuncionario() {
 		return funcionarioRepository.getAllFuncionario();
 	}
-	public Funcionario getFuncionarioByMatricula(Integer matricula) {
-		return funcionarioRepository.getFuncionarioByMatricula(matricula);
+	public Funcionario getFuncionarioById(Integer id) {
+		return funcionarioRepository.getFuncionarioById(id);
 	}
 	
 	public Funcionario saveOrUpdateFuncionario(Funcionario funcionario) {

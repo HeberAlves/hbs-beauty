@@ -1,14 +1,9 @@
 package br.com.hbsbeauty.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,34 +12,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class Funcionario {
+public class Funcionario implements Serializable {
 	
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Integer matricula;
+	private Integer id;
 	private String nome;
 	private String cargo;
 	private Double salario;
-	
+
 	@OneToMany
-	private List<Agendamento> agendamento;
-	
-	@ManyToOne
-	private User user;
-	
-	public Funcionario () {
+	@JoinTable(name = "user_funcionario",
+			joinColumns = {@JoinColumn(name = "funcionario_id")},
+			inverseJoinColumns = {@JoinColumn(name = "user_id")}
+	)
+	private List<User> users;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public Funcionario(Integer matricula, String nome, String cargo, Double salario) {
-		super();
-		this.matricula = matricula;
-		this.nome = nome;
-		this.cargo = cargo;
-		this.salario = salario;
-	}
-
-	public Integer getMatricula() {
-		return matricula;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -70,11 +59,12 @@ public class Funcionario {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
-	
-	
-	
-	
-	
-	
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }

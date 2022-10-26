@@ -15,8 +15,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	@Query (value = "SELECT u FROM Funcionario u")
 	List<Funcionario> getAllFuncionario();
 	
-	@Query (value = "SELECT u FROM Funcionario u WHERE u.matricula =:matricula")
-	Funcionario getFuncionarioByMatricula(@Param("matricula")Integer matricula);
+	@Query (value = "SELECT u FROM Funcionario u WHERE u.id =:id")
+	Funcionario getFuncionarioById(@Param("id")Integer id);
 	
 	
 

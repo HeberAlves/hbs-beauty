@@ -30,9 +30,9 @@ public class FuncionarioController {
 		return new ResponseEntity<>(funcionario,HttpStatus.OK);
 	}
 	
-	@GetMapping (value = "/funcionario/{matricula}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <Funcionario> getFuncionarioByMatricula(@PathVariable Integer matricula){
-		Funcionario funcionario = funcionarioServices.getFuncionarioByMatricula(matricula);
+	@GetMapping (value = "/funcionario/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <Funcionario> getFuncionarioById(@PathVariable Integer id){
+		Funcionario funcionario = funcionarioServices.getFuncionarioById(id);
 		return new ResponseEntity<>(funcionario,HttpStatus.OK);
 	}
 	

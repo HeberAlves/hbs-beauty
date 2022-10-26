@@ -3,13 +3,7 @@ package br.com.hbsbeauty.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -30,26 +24,13 @@ public class Cliente implements Serializable {
 	private String email;
 	private String telefone;
 	private String endereco;
-	
-	@OneToMany
-	private List<Agendamento> agendamento;
-	
-	public Cliente() {
-		
-	}
-
-	public Cliente(Integer id, String nome, int idade, String email, String telefone, String endereco) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.idade = idade;
-		this.email = email;
-		this.telefone = telefone;
-		this.endereco = endereco;
-	}
 
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
